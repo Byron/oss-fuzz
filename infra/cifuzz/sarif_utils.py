@@ -64,6 +64,6 @@ def get_sarif_data(stacktrace):
 
 def write_sarif_data(stacktraces, workspace):
   data = get_sarif_data(stacktraces[0])
-  workspace.initialize_dir(workspace.sarif))
+  workspace.initialize_dir(workspace.sarif)
   with open(os.path.join(workspace.sarif, 'results.sarif')) as file_handle:
     file_handle.write(data)
