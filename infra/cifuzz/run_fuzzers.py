@@ -22,6 +22,7 @@ import clusterfuzz_deployment
 import fuzz_target
 import generate_coverage_report
 import workspace_utils
+import sarif_utils
 
 # pylint: disable=wrong-import-position,import-error
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
