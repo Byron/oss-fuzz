@@ -29,7 +29,7 @@ RULES = [
   }
 ]
 
-def get_sarif_data(stacktrace, artifact_url):
+def get_sarif_data(stacktrace):
   result = {
       'ruleId': BUG_ID,
       'partialFingerprints': {  # TODO(metzman): Use the stackframes.
@@ -60,3 +60,9 @@ def get_sarif_data(stacktrace, artifact_url):
       'runs': [run]
   }
   return data
+
+
+def write_sarif_data(stacktraces, workspace):
+  data = get_sarif_data(stacktraces[0])
+  with open(os.path.join(workspace.sarif, 'results.sarif')) as file_handle:
+    file_handle.write(data)

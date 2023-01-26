@@ -49,6 +49,8 @@ class BaseFuzzTargetRunner:
     # Set by the initialize method.
     self.fuzz_target_paths = None
 
+    self._stacktraces = []
+
   def get_fuzz_targets(self):
     """Returns fuzz targets in out directory."""
     return utils.get_fuzz_targets(self.workspace.out)
@@ -140,12 +142,14 @@ class BaseFuzzTargetRunner:
                      target.target_name)
         continue
 
+      self._stacktraces.append(result.stacktrace)
       bug_found = True
       if self.quit_on_bug_found:
         logging.info('Bug found. Stopping fuzzing.')
         break
 
     self.clusterfuzz_deployment.upload_crashes()
+    self.sarif_utils.write_sarif_data(self._stacktraces, self.workspace)
     return bug_found
 
 
